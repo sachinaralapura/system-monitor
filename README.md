@@ -1,54 +1,128 @@
-# React + TypeScript + Vite
+# Electron React Vite TypeScript Template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a template repository for building desktop applications using **Electron**, **React**, **Vite**, and **TypeScript**. It provides a modern development setup with hot module replacement, type safety, and multi-platform build scripts, making it ideal for creating cross-platform desktop apps.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Fast Development**: Vite’s blazing-fast hot module replacement for React components.
+- **Type Safety**: TypeScript for robust, maintainable code.
+- **Cross-Platform Builds**: Scripts for macOS, Windows, and Linux using Electron Builder.
+- **Linting**: ESLint with React-specific plugins for code quality.
+- **Modular Structure**: Separated main (`src/electron`) and renderer (`src/ui`) processes.
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Before you begin, ensure you have the following installed:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- [Node.js](https://nodejs.org/) (version 18 or later recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+- A code editor like [VS Code](https://code.visualstudio.com/) (recommended for TypeScript support)
+
+## Installation
+
+1. Clone the repository:
+    
+    ```bash
+    git clone https://github.com/your-username/electron-app.git
+    cd electron-app
+    ```
+    
+2. Install dependencies:
+    
+    ```bash
+    npm install
+    ```
+    
+
+## Usage
+
+### Development
+
+Run the app in development mode with hot reloading:
+
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This starts both the Vite dev server (`dev:react`) for the renderer process and the Electron app (`dev:electron`). The app will automatically reload when you make changes to the React code.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Building
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Build the app for production:
+
+- **macOS** (ARM64):
+    
+    ```bash
+    npm run dist:mac
+    ```
+    
+- **Windows** (x64):
+    
+    ```bash
+    npm run dist:win
+    ```
+    
+- **Linux** (x64):
+    
+    ```bash
+    npm run dist:linux
+    ```
+    
+
+These scripts transpile the Electron code, build the React app, and package it using Electron Builder.
+
+### Linting
+
+Check code quality with ESLint:
+
+```bash
+npm run lint
 ```
+
+### Preview
+
+Preview the production build of the React app (without Electron):
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```
+├── src
+│   ├── electron      # Main process code (Electron backend)
+│   └── ui           # Renderer process code (React frontend)
+├── tsconfig.json    # Base TypeScript configuration
+├── tsconfig.app.json # TypeScript config for the renderer process
+├── tsconfig.node.json # TypeScript config for the main process
+├── vite.config.ts   # Vite configuration
+├── package.json     # Project dependencies and scripts
+```
+
+- **`src/electron`**: Contains the main process code that runs Node.js and controls the Electron app (e.g., window creation).
+- **`src/ui`**: Contains the React app rendered in the Electron window.
+- **TypeScript Configs**: Separate configs ensure proper type-checking for Node.js (`tsconfig.node.json`) and browser (`tsconfig.app.json`) environments.
+
+## Scripts Explained
+
+- `dev`: Runs `dev:react` and `dev:electron` in parallel.
+- `dev:react`: Starts the Vite dev server for the React app.
+- `dev:electron`: Transpiles Electron code and launches the Electron app in development mode.
+- `transpile:electron`: Compiles TypeScript in `src/electron` to JavaScript.
+- `build`: Builds the React app for production.
+- `dist:mac/win/linux`: Packages the app for the specified platform.
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -m "Add your feature"`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
