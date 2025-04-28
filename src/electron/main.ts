@@ -33,8 +33,6 @@ app.on("ready", () => {
   // handle the getStaticData channel invoke
   ipcMainHandler("getStaticData", () => getStaticData());
 
-  // mainWindow.setAlwaysOnTop(true);
-
   // Listen for key events when the window is focused
   setShortcut(mainWindow);
 
